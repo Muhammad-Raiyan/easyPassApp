@@ -1,0 +1,42 @@
+var express = require('express')
+var router = express.Router()
+
+var Storage = require('dom-storage')
+var customerStorage = new Storage('./customer.json', { strict: false, ws: '  ' })
+var easyPassStorage = new Storage('./easyPass.json', { strict: false, ws: '  ' })
+
+/* GET users listing. */
+router.get('/', function (req, res, next) {
+  res.render('index', { title: 'Users page' })
+})
+
+router.get('/signup', function (req, res, next) {
+  res.render('signup', {
+    title: 'Signup page',
+    message: 'Enter Signup data'
+  })
+})
+
+router.post('/signup', function (req, res, next) {
+  console.log('Signup post request')
+  var user = req.body
+  var username = req.body.email
+  user.balance = 0
+  var easyPassNo = Math.floor((Math.random() * 100000) + 1)
+  easyPassStorage.setItem(easyPassNo, true)
+  customerStorage.setItem(username, user)
+  res.redirect('/users/login')
+})
+
+router.get('/login', function (req, res, next) {
+  res.render('login', {
+    title: 'login page',
+    message: 'Enter login Information'
+  })
+})
+
+router.post('/login', function (req, res, next) {
+  console.log('Login post request')
+})
+
+module.exports = router
