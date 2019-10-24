@@ -11,6 +11,9 @@
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+    <% if (message.length > 0) { %>
+      <div class="alert alert-danger"><%= message %></div>
+    <% } %>
     <form action="/users/logout" method="post">
       <button type="submit" class="btn btn-warning btn-lg">Logout</button>
     </form>

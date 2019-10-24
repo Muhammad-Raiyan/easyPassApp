@@ -50,9 +50,6 @@ router.post('/login', function (req, res, next) {
         // in the session store to be retrieved,
         // or in this case the entire user object
         req.session.user = user
-        req.session.success = 'Authenticated as ' + user.name +
-          ' click to <a href="/logout">logout</a>. ' +
-          ' You may now access <a href="/restricted">/restricted</a>.'
         res.redirect('/users')
       })
     } else {
@@ -78,11 +75,12 @@ router.post('/requesttag', function (req, res) {
       // console.log(user)
       customerStorage.setItem(x.email, user)
       easyPassStorage.setItem(key, false)
+      req.session.success = key + ' aassigned to user ' + x.email
       break
     }
   }
 
-  console.log(easyPassStorage)
+  // console.log(easyPassStorage)
   res.redirect('/users')
 })
 
