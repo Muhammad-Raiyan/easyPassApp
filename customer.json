@@ -12,5 +12,19 @@
     "cmodel": "asd",
     "cyear": "asd",
     "balance": 0
+  },
+  "admin@admin.com": {
+    "email": "admin@admin.com",
+    "password": "qwe",
+    "fname": "admin",
+    "lname": "admin",
+    "address": "admin",
+    "zip": "12345",
+    "state": "KY",
+    "lplate": "123",
+    "cmake": "123",
+    "cmodel": "123",
+    "cyear": "123",
+    "balance": 0
   }
 }
