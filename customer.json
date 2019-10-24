@@ -26,5 +26,34 @@
     "cmodel": "123",
     "cyear": "123",
     "balance": 0
+  },
+  "asd@asd.com": {
+    "email": "asd@asd.com",
+    "password": "asd",
+    "fname": "asd",
+    "lname": "asdd",
+    "address": "asd",
+    "zip": "123",
+    "state": "AK",
+    "lplate": "123",
+    "cmake": "123",
+    "cmodel": "123",
+    "cyear": "123",
+    "balance": 0,
+    "tag": "18486"
+  },
+  "qwe@qwe.com": {
+    "email": "qwe@qwe.com",
+    "password": "qwe",
+    "fname": "asd",
+    "lname": "asdd",
+    "address": "asd",
+    "zip": "123",
+    "state": "AK",
+    "lplate": "123",
+    "cmake": "123",
+    "cmodel": "123",
+    "cyear": "123",
+    "balance": 0
   }
 }

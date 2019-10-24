@@ -68,4 +68,22 @@ router.post('/logout', function (req, res) {
   })
 })
 
+router.post('/requesttag', function (req, res) {
+  var x = req.session.user
+  console.log(x)
+  var user = customerStorage.getItem(req.session.user.email)
+  for (var key in easyPassStorage) {
+    if (easyPassStorage[key]) {
+      user.tag = key
+      // console.log(user)
+      customerStorage.setItem(x.email, user)
+      easyPassStorage.setItem(key, false)
+      break
+    }
+  }
+
+  console.log(easyPassStorage)
+  res.redirect('/users')
+})
+
 module.exports = router
