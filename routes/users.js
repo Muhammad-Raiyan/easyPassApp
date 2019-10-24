@@ -70,6 +70,11 @@ router.post('/requesttag', function (req, res) {
   console.log(x)
   var user = customerStorage.getItem(req.session.user.email)
   for (var key in easyPassStorage) {
+    if (user.tag) {
+      console.log('tag exists')
+      req.session.success = 'tag already aassigned to user ' + x.email
+      break
+    }
     if (easyPassStorage[key]) {
       user.tag = key
       // console.log(user)
