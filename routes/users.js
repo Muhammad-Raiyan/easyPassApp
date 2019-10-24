@@ -8,7 +8,9 @@ var { authenticate, restrict } = require('../auth')
 
 /* GET users listing. */
 router.get('/', restrict, function (req, res, next) {
-  res.render('index', { title: 'Users page' })
+  console.log(req.session)
+  var user = req.session.user
+  res.render('index', { title: user.email })
 })
 
 router.get('/signup', function (req, res, next) {
