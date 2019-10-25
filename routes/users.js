@@ -75,7 +75,7 @@ router.post('/logout', function (req, res) {
   })
 })
 
-router.post('/requesttag', async function (req, res) {
+router.post('/requesttag', function (req, res) {
   var x = req.session
   if (!req.session.user) {
     res.redirect('/users/login')
@@ -126,4 +126,19 @@ router.post('/addFunds', function (req, res) {
 
   res.redirect('/users')
 })
+router.get('/changeInformation', function (req, res, next) {
+  res.render('personal', { title: 'Update Personal Info for ' })
+})
+router.post('/changeInformation', function (req, res, next) {
+  var updatedUser = req.body
+  var prevUser = customerStorage.getItem(updatedUser.email)
+
+  updatedUser.lplate = prevUser.lplate
+  updatedUser.cmake = prevUser.cmake
+  updatedUser.cyear = prevUser.cyear
+  updatedUser.balance = prevUser.balance
+  customerStorage.setItem(updatedUser.email, updatedUser)
+  res.redirect('/users')
+})
+
 module.exports = router

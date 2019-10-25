@@ -72,9 +72,3 @@ function addFund (user, amount) {
   customerStorage.setItem(user.email, user)
   return true
 }
-
-// router.post( '/changeInformation', function( req, res, next){
-//   var user  = req.session.user
-//   var email = user.email
-//   res.render( 'personal', { title: 'Update Personal Info for '+email})
-// })
