@@ -5,6 +5,7 @@ var Storage = require('dom-storage')
 var customerStorage = new Storage('./customer.json', { strict: false, ws: '  ' })
 var easyPassStorage = new Storage('./easyPass.json', { strict: false, ws: '  ' })
 var { authenticate, restrict } = require('../auth')
+var customerDB = require('../db/customer.db')
 
 /* GET users listing. */
 router.get('/', restrict, function (req, res, next) {
@@ -16,19 +17,20 @@ router.get('/', restrict, function (req, res, next) {
 router.get('/signup', function (req, res, next) {
   res.render('signup', {
     title: 'Signup page',
-    message: 'Enter Signup data'
+    message: req.session.message ? req.session.message : 'Enter Signup data'
   })
 })
 
 router.post('/signup', function (req, res, next) {
   console.log('Signup post request')
   var user = req.body
-  var username = req.body.email
-  user.balance = 0
-  var easyPassNo = Math.floor((Math.random() * 100000) + 1)
-  easyPassStorage.setItem(easyPassNo, true)
-  customerStorage.setItem(username, user)
-  res.redirect('/users/login')
+  if (customerDB.createCustomer(user)) {
+    res.redirect('/users/login')
+  } else {
+    console.log('Customer already exists')
+    req.session.message = 'Customer already exists'
+    res.redirect('/users/signup')
+  }
 })
 
 router.get('/login', function (req, res, next) {
@@ -40,7 +42,11 @@ router.get('/login', function (req, res, next) {
 router.post('/login', function (req, res, next) {
   console.log('Login post request')
   authenticate(req.body.email, req.body.password, (err, user) => {
-    if (err) console.log(err)
+    if (err) {
+      console.log(err)
+      req.session.error = 'Authentication failed, please check your username and password.'
+      res.redirect('/users/login')
+    }
     if (user) {
       // Regenerate session when signing in
       // to prevent fixation
