@@ -1,6 +1,8 @@
 var Storage = require('dom-storage')
 var customerStorage = new Storage('./customer.json', { strict: false, ws: '  ' })
 var easyPassStorage = new Storage('./easyPass.json', { strict: false, ws: '  ' })
+var lostTagInventory = new Storage('./lostTags.json', { strict: false, ws: '  ' })
+var tagDB = require('./tag.db')
 
 module.exports = {
   createCustomer,
@@ -19,14 +21,17 @@ function createCustomer (user) {
     return false
   }
   user.balance = 0
-  var easyPassNo = Math.floor((Math.random() * 100000) + 1)
-  easyPassStorage.setItem(easyPassNo, true)
   customerStorage.setItem(username, user)
   return true
 }
 
 function requestTag (user) {
-
+  if (tagDB.assignTag(user)) {
+    customerStorage.setItem(user.email, user)
+    return true
+  } else {
+    return false
+  }
 }
 
 function updateCustomer (user) {
@@ -38,11 +43,23 @@ function updateVehicle (user) {
 }
 
 function returnTag (user) {
-
+  user = customerStorage.getItem(user.email)
+  tagDB.returnTag(user)
+  var prevTag = user.tag
+  delete user.tag
+  customerStorage.setItem(user.email, user)
+  easyPassStorage.setItem(prevTag, false)
+  return prevTag
 }
 
 function lostTag (user) {
-
+  user = customerStorage.getItem(user.email)
+  if (!user.tag) return false
+  var prevTag = user.tag
+  delete user.tag
+  lostTagInventory.setItem(prevTag, 'Lost')
+  easyPassStorage.removeItem(prevTag)
+  return true
 }
 
 function addFund (user) {

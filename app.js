@@ -21,9 +21,13 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use(session({
-  resave: false, // don't save session if unmodified
+  resave: true, // don't save session if unmodified
   saveUninitialized: false, // don't create session until something stored
-  secret: 'shhhh, very secret'
+  secret: 'shhhh, very secret',
+  cookie: {
+    secure: false, // Secure is Recommeneded, However it requires an HTTPS enabled website (SSL Certificate)
+    maxAge: 864000000 // 10 Days in miliseconds
+  }
 }))
 
 // Session-persisted message middleware

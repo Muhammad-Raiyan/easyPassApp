@@ -11,20 +11,7 @@
     "cmake": "asd",
     "cmodel": "asd",
     "cyear": "asd",
-    "balance": 0
-  },
-  "asd@asd.com": {
-    "email": "asd@asd.com",
-    "password": "asd",
-    "fname": "asd",
-    "lname": "asd",
-    "address": "asd",
-    "zip": "asd",
-    "state": "KY",
-    "lplate": "asd",
-    "cmake": "asd",
-    "cmodel": "asd",
-    "cyear": "asd",
-    "balance": 0
+    "balance": 0,
+    "tag": "21214"
   }
 }

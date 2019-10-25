@@ -4,6 +4,8 @@ var router = express.Router()
 var Storage = require('dom-storage')
 var customerStorage = new Storage('./customer.json', { strict: false, ws: '  ' })
 var easyPassStorage = new Storage('./easyPass.json', { strict: false, ws: '  ' })
+var lostTagInventory = new Storage('./lostTags.json', { strict: false, ws: '  ' })
+
 var { authenticate, restrict } = require('../auth')
 var customerDB = require('../db/customer.db')
 
@@ -66,33 +68,53 @@ router.post('/login', function (req, res, next) {
 })
 
 router.post('/logout', function (req, res) {
+  if (!req.session.user) {
+    res.redirect('/users/login')
+  }
+  console.log(req.session)
   req.session.destroy(function () {
     res.redirect('/users/login')
   })
 })
 
-router.post('/requesttag', function (req, res) {
-  var x = req.session.user
+router.post('/requesttag', async function (req, res) {
+  var x = req.session
+  if (!req.session.user) {
+    res.redirect('/users/login')
+  }
   console.log(x)
   var user = customerStorage.getItem(req.session.user.email)
-  for (var key in easyPassStorage) {
-    if (user.tag) {
-      console.log('tag exists')
-      req.session.success = 'tag already aassigned to user ' + x.email
-      break
-    }
-    if (easyPassStorage[key]) {
-      user.tag = key
-      // console.log(user)
-      customerStorage.setItem(x.email, user)
-      easyPassStorage.setItem(key, false)
-      req.session.success = key + ' aassigned to user ' + x.email
-      break
-    }
+  if (await customerDB.requestTag(user)) {
+    req.session.success = user.tag + ' assigned to ' + user.email
+    res.redirect('/users')
+  } else {
+    console.log('tag exists')
+    req.session.success = 'tag already aassigned to user ' + user.email
+    req.session.save()
+    res.redirect('/users')
   }
+})
 
-  // console.log(easyPassStorage)
+router.post('/relinquishTag', function (req, res) {
+  if (!req.session.user) {
+    res.redirect('/users/login')
+  }
+  console.log(req.session)
+  var user = req.session.user
+  var prevTag = customerDB.returnTag(user)
+  req.session.success = 'tag no longer assigned to' + prevTag + '   ' + req.session.email
   res.redirect('/users')
+})
+
+router.post('/reportLostTag', async function (req, res) {
+  if (!req.session.user) {
+    res.redirect('/users/login')
+  }
+  var user = req.session.user
+
+  if (customerDB.lostTag(user)) {
+    req.session.success = 'Thanks for reporting lost tag'
+  }
 })
 
 module.exports = router
