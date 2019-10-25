@@ -1,17 +1,30 @@
 {
   "mislam0525@gmail.com": {
     "email": "mislam0525@gmail.com",
-    "password": "qwe",
-    "fname": "Muhammadqwe",
-    "lname": "Islamqwe",
+    "password": "asd",
+    "fname": "Muhammad",
+    "lname": "Islam",
     "address": "57-26 73rd St",
     "zip": "11378",
     "state": "NY",
     "lplate": "asd",
     "cmake": "asd",
+    "cmodel": "asd",
     "cyear": "asd",
-    "balance": 130,
-    "tag": "35265",
-    "admin": false
+    "balance": 0
+  },
+  "asd@asd.com": {
+    "email": "asd@asd.com",
+    "password": "asd",
+    "fname": "asd",
+    "lname": "asd",
+    "address": "asd",
+    "zip": "asd",
+    "state": "KS",
+    "lplate": "asd",
+    "cmake": "asd",
+    "cmodel": "asd",
+    "cyear": "asd",
+    "balance": 0
   }
 }

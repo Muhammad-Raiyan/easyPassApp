@@ -1,9 +1,6 @@
 var express = require('express')
 var router = express.Router()
 
-var Storage = require('dom-storage')
-var customerStorage = new Storage('./customer.json', { strict: false, ws: '  ' })
-
 var { authenticate, restrict } = require('../auth')
 var customerDB = require('../db/customer.db')
 
@@ -24,13 +21,15 @@ router.get('/signup', function (req, res, next) {
 router.post('/signup', function (req, res, next) {
   console.log('Signup post request')
   var user = req.body
-  if (customerDB.createCustomer(user)) {
-    res.redirect('/users/login')
-  } else {
-    console.log('Customer already exists')
-    req.session.message = 'Customer already exists'
-    res.redirect('/users/signup')
-  }
+  customerDB.createCustomer(user, (success, msg) => {
+    if (success) {
+      req.session.success = msg
+      res.redirect('/users/login')
+    } else {
+      req.session.error = msg
+      res.redirect('/users/login')
+    }
+  })
 })
 
 router.get('/login', function (req, res, next) {
@@ -50,14 +49,9 @@ router.post('/login', function (req, res, next) {
     if (user) {
       // Regenerate session when signing in
       // to prevent fixation
-      console.log('Found ' + JSON.stringify(user))
-      req.session.regenerate(function () {
-        // Store the user's primary key
-        // in the session store to be retrieved,
-        // or in this case the entire user object
-        req.session.user = user
-        res.redirect('/users')
-      })
+      console.log(user)
+      req.session.user = user.email
+      res.redirect('/users')
     } else {
       req.session.error = 'Authentication failed, please check your username and password.'
       res.redirect('/users/login')
@@ -66,79 +60,83 @@ router.post('/login', function (req, res, next) {
 })
 
 router.post('/logout', function (req, res) {
-  if (!req.session.user) {
-    res.redirect('/users/login')
-  }
   console.log(req.session)
   req.session.destroy(function () {
     res.redirect('/users/login')
   })
 })
 
-router.post('/requesttag', function (req, res) {
-  var x = req.session
-  if (!req.session.user) {
-    res.redirect('/users/login')
-  }
-  console.log(x)
-  var user = customerStorage.getItem(req.session.user.email)
-  if (customerDB.requestTag(user)) {
-    req.session.success = user.tag + ' assigned to ' + user.email
-    res.redirect('/users')
-  } else {
-    console.log('tag exists')
-    req.session.success = 'tag already aassigned to user ' + user.email
-    req.session.save()
-    res.redirect('/users')
-  }
+router.post('/requesttag', restrict, function (req, res) {
+  var userID = req.session.user
+  customerDB.requestTag(userID, function (success, user) {
+    if (success) {
+      req.session.success = user.tag + ' assigned to ' + user.email
+      res.redirect('/users')
+    } else {
+      req.session.success = user.tag + ' tag already assigned to user ' + user.email
+      res.redirect('/users')
+    }
+  })
 })
 
-router.post('/relinquishTag', function (req, res) {
-  if (!req.session.user) {
-    res.redirect('/users/login')
-  }
-  console.log(req.session)
-  var user = req.session.user
-  var prevTag = customerDB.returnTag(user)
-  req.session.success = 'tag no longer assigned to' + prevTag + '   ' + req.session.email
-  res.redirect('/users')
+router.post('/relinquishTag', restrict, function (req, res) {
+  var userID = req.session.user
+  customerDB.returnTag(userID, (prevTag, user) => {
+    if (prevTag == null) {
+      req.session.success = user.email + ' doesn\'t have a tag assigned'
+      req.session.user = user.email
+      res.redirect('/users')
+    } else {
+      req.session.success = prevTag + ' tag no longer assigned to ' + req.session.email
+      console.log('after modification')
+      req.session.user = user.email
+      res.redirect('/users')
+    }
+  })
 })
 
-router.post('/reportLostTag', async function (req, res) {
-  if (!req.session.user) {
-    res.redirect('/users/login')
-  }
-  var user = req.session.user
-
-  if (customerDB.lostTag(user)) {
-    req.session.success = 'Thanks for reporting lost tag'
-    res.redirect('/users')
-  }
+router.post('/reportLostTag', restrict, function (req, res) {
+  var userID = req.session.user
+  customerDB.lostTag(userID, (prevTag, message) => {
+    if (prevTag) {
+      req.session.success = prevTag + message
+      res.redirect('/users')
+    } else {
+      req.session.error = message
+      res.redirect('/users')
+    }
+  })
 })
 
-router.post('/addFunds', function (req, res) {
-  if (!req.session.user) {
-    res.redirect('/users/login')
-  }
-  var user = customerStorage.getItem(req.session.user.email)
+router.post('/addFunds', restrict, function (req, res) {
+  var userID = req.session.user
   var amount = req.body.amount ? parseInt(req.body.amount) : 20
-  customerDB.addFund(user, amount)
-
-  res.redirect('/users')
+  customerDB.addFund(userID, amount, (success, user) => {
+    if (success) {
+      req.session.success = amount + ' added to funds of ' + user.email
+      res.redirect('/users')
+    } else {
+      req.session.error = 'Error'
+      res.redirect('/users')
+    }
+  })
 })
+
 router.get('/changeInformation', function (req, res, next) {
   res.render('personal', { title: 'Update Personal Info for ' })
 })
 router.post('/changeInformation', function (req, res, next) {
+  var userID = req.session.user
   var updatedUser = req.body
-  var prevUser = customerStorage.getItem(updatedUser.email)
-
-  updatedUser.lplate = prevUser.lplate
-  updatedUser.cmake = prevUser.cmake
-  updatedUser.cyear = prevUser.cyear
-  updatedUser.balance = prevUser.balance
-  customerStorage.setItem(updatedUser.email, updatedUser)
-  res.redirect('/users')
+  customerDB.updateUser(userID, updatedUser, (success) => {
+    if (success) {
+      req.session.success = 'User updated'
+      res.redirect('/users')
+    } else {
+      req.session.error = 'Error'
+      res.redirect('/users')
+    }
+  })
 })
 
 module.exports = router

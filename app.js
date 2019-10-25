@@ -19,15 +19,12 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
-
+require('./db/tag.db').initTags()
+require('./db/customer.db').initCustomers()
 app.use(session({
-  resave: true, // don't save session if unmodified
+  resave: true, // save session even if unmodified
   saveUninitialized: false, // don't create session until something stored
-  secret: 'shhhh, very secret',
-  cookie: {
-    secure: false, // Secure is Recommeneded, However it requires an HTTPS enabled website (SSL Certificate)
-    maxAge: 864000000 // 10 Days in miliseconds
-  }
+  secret: 'shhhh, very secret'
 }))
 
 // Session-persisted message middleware
