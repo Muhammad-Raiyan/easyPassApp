@@ -1,0 +1,9 @@
+// {
+//     "toll code": { 
+//         toll name, 
+//         fare, 
+//         fare effective date, 
+//         toll type (bridge, tunnel), 
+//         entry point 
+//     }
+// }
