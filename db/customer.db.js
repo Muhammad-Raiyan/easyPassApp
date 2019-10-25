@@ -59,9 +59,22 @@ function lostTag (user) {
   delete user.tag
   lostTagInventory.setItem(prevTag, 'Lost')
   easyPassStorage.removeItem(prevTag)
+  customerStorage.setItem(user.email, user)
   return true
 }
 
-function addFund (user) {
-
+function addFund (user, amount) {
+  if (!user) {
+    return false
+  }
+  user.balance += amount
+  console.log(user)
+  customerStorage.setItem(user.email, user)
+  return true
 }
+
+// router.post( '/changeInformation', function( req, res, next){
+//   var user  = req.session.user
+//   var email = user.email
+//   res.render( 'personal', { title: 'Update Personal Info for '+email})
+// })

@@ -3,8 +3,6 @@ var router = express.Router()
 
 var Storage = require('dom-storage')
 var customerStorage = new Storage('./customer.json', { strict: false, ws: '  ' })
-var easyPassStorage = new Storage('./easyPass.json', { strict: false, ws: '  ' })
-var lostTagInventory = new Storage('./lostTags.json', { strict: false, ws: '  ' })
 
 var { authenticate, restrict } = require('../auth')
 var customerDB = require('../db/customer.db')
@@ -84,7 +82,7 @@ router.post('/requesttag', async function (req, res) {
   }
   console.log(x)
   var user = customerStorage.getItem(req.session.user.email)
-  if (await customerDB.requestTag(user)) {
+  if (customerDB.requestTag(user)) {
     req.session.success = user.tag + ' assigned to ' + user.email
     res.redirect('/users')
   } else {
@@ -114,7 +112,18 @@ router.post('/reportLostTag', async function (req, res) {
 
   if (customerDB.lostTag(user)) {
     req.session.success = 'Thanks for reporting lost tag'
+    res.redirect('/users')
   }
 })
 
+router.post('/addFunds', function (req, res) {
+  if (!req.session.user) {
+    res.redirect('/users/login')
+  }
+  var user = customerStorage.getItem(req.session.user.email)
+  var amount = req.body.amount ? parseInt(req.body.amount) : 20
+  customerDB.addFund(user, amount)
+
+  res.redirect('/users')
+})
 module.exports = router
