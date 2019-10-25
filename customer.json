@@ -11,6 +11,7 @@
     "cmake": "asd",
     "cyear": "asd",
     "balance": 130,
-    "tag": "35265"
+    "tag": "35265",
+    "admin": false
   }
 }
