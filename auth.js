@@ -1,5 +1,5 @@
 var Storage = require('dom-storage')
-var customerStorage = new Storage('./customer.json', { strict: false, ws: '  ' })
+var customerStorage = new Storage('./data/customer.json', { strict: false, ws: '  ' })
 
 module.exports = {
   authenticate,
@@ -9,10 +9,10 @@ module.exports = {
 function authenticate (email, pass, fn) {
   if (!module.parent) console.log('authenticating %s:%s', email, pass)
   var user = customerStorage.getItem(email)
-  if (!user) fn(new Error('invalid password'))
+  console.log(customerStorage)
   console.log(email)
-  console.log(user.email + user.password)
-  if (!user) return fn(new Error('cannot find user'))
+  console.log(pass)
+  if (!user) fn(new Error('cannot find user'))
 
   if (pass === user.password) return fn(null, user)
   fn(new Error('invalid password'))

@@ -3,6 +3,7 @@ var router = express.Router()
 
 var { authenticate, restrict } = require('../auth')
 var customerDB = require('../db/customer.db')
+var tagsDB = require('../db/tag.db')
 
 /* GET users listing. */
 router.get('/', restrict, function (req, res, next) {
@@ -61,8 +62,11 @@ router.post('/login', function (req, res, next) {
 
 router.post('/logout', function (req, res) {
   console.log(req.session)
-  req.session.destroy(function () {
-    res.redirect('/users/login')
+  customerDB.storeCustomers(req.session.user, (success) => {
+    tagsDB.storeTags()
+    req.session.destroy(function () {
+      res.redirect('/users/login')
+    })
   })
 })
 

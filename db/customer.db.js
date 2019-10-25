@@ -1,5 +1,5 @@
 var Storage = require('dom-storage')
-var customerStorage = new Storage('./customer.json', { strict: false, ws: '  ' })
+var customerStorage = new Storage('./data/customer.json', { strict: false, ws: '  ' })
 var tagDB = require('./tag.db')
 var customers = null
 
@@ -12,11 +12,19 @@ module.exports = {
   lostTag,
   addFund,
   removeFund,
-  initCustomers
+  initCustomers,
+  storeCustomers
 }
 
 function initCustomers () {
   customers = customerStorage
+}
+
+function storeCustomers (email, next) {
+  console.log('storing all customer data')
+  var user = customers[email]
+  customerStorage.setItem(email, user)
+  return next(true)
 }
 
 function createCustomer (user, next) {
@@ -26,6 +34,7 @@ function createCustomer (user, next) {
   } else {
     user.balance = 0
     customerStorage.setItem(username, user)
+    // tagDB.createTag()
     return next(true, 'Success')
   }
 }
