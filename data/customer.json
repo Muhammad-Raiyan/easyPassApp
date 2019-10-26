@@ -12,7 +12,8 @@
     "cmodel": "asd",
     "cyear": "asd",
     "balance": 0,
-    "isAdmin": true
+    "isAdmin": true,
+    "tag": "3333"
   },
   "muhammad.r.islam@stonybrook.edu": {
     "email": "muhammad.r.islam@stonybrook.edu",

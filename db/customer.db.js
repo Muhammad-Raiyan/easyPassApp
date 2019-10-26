@@ -95,7 +95,7 @@ function lostTag (email, next) {
 
 function addFund (email, amount, next) {
   var user = customers[email]
-  console.log(user)
+
   user.balance += amount
   return next(true, user)
 }

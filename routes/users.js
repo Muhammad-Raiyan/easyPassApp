@@ -8,7 +8,14 @@ var tollDB = require('../db/toll.db')
 
 /* GET users listing. */
 router.get('/', restrict, function (req, res, next) {
-  console.log(req.session)
+  var userID = req.session.user
+  customerDB.getUser(userID, (user) => {
+    if (user.isAdmin) {
+      res.redirect('/users/clerks')
+    } else {
+      res.redirect('/user/customer')
+    }
+  })
 })
 
 router.get('/customer', restrict, function (req, res, next) {
@@ -131,8 +138,10 @@ router.post('/reportLostTag', restrict, function (req, res) {
 router.post('/addFunds', restrict, function (req, res) {
   var userID = req.session.user
   var amount = req.body.amount ? parseInt(req.body.amount) : 20
+  console.log(userID)
   customerDB.addFund(userID, amount, (success, user) => {
     if (success) {
+      console.log('success adding fund')
       req.session.success = amount + ' added to funds of ' + user.email
       res.redirect('/users')
     } else {
