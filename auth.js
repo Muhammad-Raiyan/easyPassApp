@@ -1,6 +1,6 @@
 var Storage = require('dom-storage')
 var customerStorage = new Storage('./data/customer.json', { strict: false, ws: '  ' })
-
+var customerDB = require('./db/customer.db')
 module.exports = {
   authenticate,
   restrict
@@ -9,6 +9,8 @@ module.exports = {
 function authenticate (email, pass, fn) {
   if (!module.parent) console.log('authenticating %s:%s', email, pass)
   var user = customerStorage.getItem(email)
+  var temp = customerDB.getUser(email)
+  if (user == null) user = temp
   console.log(customerStorage)
   console.log(email)
   console.log(pass)

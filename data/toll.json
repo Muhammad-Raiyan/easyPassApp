@@ -4,7 +4,7 @@
         "fare": 6.12,
         "effective-date": "10252019", 
         "type": "bridge", 
-        "entry-point" : "bronx"
+        "entry-point" : ["bronx"]
     },
     { 
         "name": "Bronx-Whitestone",

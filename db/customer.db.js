@@ -13,7 +13,8 @@ module.exports = {
   addFund,
   removeFund,
   initCustomers,
-  storeCustomers
+  storeCustomers,
+  getUser
 }
 
 function initCustomers () {
@@ -33,6 +34,8 @@ function createCustomer (user, next) {
     return next(false, user.email + ' already exists')
   } else {
     user.balance = 0
+    user.isAdmin = false
+    customers[username] = user
     customerStorage.setItem(username, user)
     // tagDB.createTag()
     return next(true, 'Success')
@@ -102,4 +105,8 @@ function removeFund (email, amount, next) {
   console.log(user)
   user.balance -= amount
   return next(true, user)
+}
+
+function getUser (email) {
+  return customers[email]
 }

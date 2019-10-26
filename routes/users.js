@@ -8,8 +8,18 @@ var tagsDB = require('../db/tag.db')
 /* GET users listing. */
 router.get('/', restrict, function (req, res, next) {
   console.log(req.session)
+})
+
+router.get('/customer', restrict, function (req, res, next) {
+  console.log(req.session)
   var user = req.session.user
   res.render('customer', { title: user })
+})
+
+router.get('/clerk', restrict, function (req, res, next) {
+  console.log(req.session)
+  var user = req.session.user
+  res.render('clerk', { title: user })
 })
 
 router.get('/signup', function (req, res, next) {
@@ -51,8 +61,13 @@ router.post('/login', function (req, res, next) {
       // Regenerate session when signing in
       // to prevent fixation
       console.log(user)
-      req.session.user = user.email
-      res.redirect('/users')
+      if (user.isAdmin) {
+        req.session.user = user.email
+        res.redirect('/users/clerk')
+      } else {
+        req.session.user = user.email
+        res.redirect('/users/customer')
+      }
     } else {
       req.session.error = 'Authentication failed, please check your username and password.'
       res.redirect('/users/login')
