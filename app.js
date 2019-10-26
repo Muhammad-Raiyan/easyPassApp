@@ -20,8 +20,12 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
+
+// init data
 require('./db/tag.db').initTags()
 require('./db/customer.db').initCustomers()
+require('./db/toll.db').initTollCrossing()
+
 app.use(session({
   resave: true, // save session even if unmodified
   saveUninitialized: false, // don't create session until something stored
