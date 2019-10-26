@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <style>
+        body         { padding-top:80px; }
+    </style>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <% if (message.length > 0) { %>
+      <div class="alert alert-danger"><%= message %></div>
+    <% } %>
+    <form action="/users/logout" method="post">
+      <button type="submit" class="btn btn-warning btn-lg">Logout</button>
+    </form>
+    <form action="/users/requesttag" method="post">
+      <button type="submit" class="btn btn-warning btn-lg">Request a Tag</button>
+    </form>
+    <form action="/users/relinquishTag" method="post">
+      <button type="submit" class="btn btn-warning btn-lg">Relinquish Tag</button>
+    </form>
+    <form action="/users/reportLostTag" method="post">
+      <button type="submit" class="btn btn-warning btn-lg">Report Lost Tag</button>
+    </form>
+    <form action="/users/changeInformation" method="get">
+      <button type="submit" class="btn btn-warning btn-lg"> Change Personal Information</button>
+    </form>
+    <form action="/users/addFunds" method="post">
+      <h4>Add Funds</h4>
+      <input type="text" class="form-control" name="amount">
+      <button type="submit" class="btn btn-warning btn-lg">Add Funds</button>
+    </form>
+    <form action="/toll" method="get">
+      <button type="submit" class="btn btn-warning btn-lg"> Go to toll page</button>
+    </form>
+  </body>
+</html>

@@ -9,7 +9,7 @@ var tagsDB = require('../db/tag.db')
 router.get('/', restrict, function (req, res, next) {
   console.log(req.session)
   var user = req.session.user
-  res.render('index', { title: user })
+  res.render('customer', { title: user })
 })
 
 router.get('/signup', function (req, res, next) {

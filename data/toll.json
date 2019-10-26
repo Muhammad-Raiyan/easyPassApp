@@ -1,16 +1,16 @@
-{
-    "1": { 
+[
+    { 
         "name": "Bronx-Whitestone",
         "fare": 6.12,
         "effective-date": "10252019", 
         "type": "bridge", 
         "entry-point" : "bronx"
     },
-    "2": { 
+    { 
         "name": "Bronx-Whitestone",
         "fare": 6.12,
         "effective-date": "10252019", 
         "type": "bridge", 
         "entry-point" : "queens"
     }
-}
+]

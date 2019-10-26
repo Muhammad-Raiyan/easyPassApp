@@ -1,6 +1,6 @@
 var Storage = require('dom-storage')
 var tollStorage = new Storage('./data/toll.json', { strict: false, ws: '  ' })
-var tollData = null
+var tollData = []
 
 module.exports = {
   getAllData,
@@ -23,7 +23,11 @@ function updateTollFare () {
 }
 
 function initTollCrossing () {
-  tollData = tollStorage
+  var i
+  for (i = 0; i < tollStorage.length; i++) {
+    var temp = tollStorage.getItem(i)
+    tollData[i] = temp
+  }
   console.log(tollData)
 }
 

@@ -9,6 +9,7 @@
     </style>
   </head>
   <body>
+    
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
     <% if (message.length > 0) { %>
@@ -34,8 +35,11 @@
       <input type="text" class="form-control" name="amount">
       <button type="submit" class="btn btn-warning btn-lg">Add Funds</button>
     </form>
+    <form action="/users/changeInformation" method="get">
+      <button type="submit" class="btn btn-warning btn-lg"> Change Personal Information</button>
+    </form>
+    <form action="/users/modifyToll" method="get">
+      <button type="submit" class="btn btn-warning btn-lg"> Modify Toll Information</button>
+    </form>
   </body>
 </html>
-
-
-

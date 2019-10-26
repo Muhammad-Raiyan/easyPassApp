@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <style>
+        body         { padding-top:80px; }
+    </style>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h2>Create New Toll</h2><br><br>
+    <form class="toll" action="/createToll" method="post">
+      Toll Name : <br>
+      <input type="text" name="tollName" ><br><br>
+      Fare: <br>
+      <input type="text" name="fare" ><br><br>
+      Fare effective date,: <br>
+      <input type="text" name="dateEffective" ><br><br>
+      Toll type (bridge, tunnel) : <br>
+      <input type="text" name="tollType" ><br><br>
+      Entry point : <br>
+      <input type="text" name="entryPoint"><br><br>
+      <button type="submit" class="btn btn-warning btn-lg">Submit</button><br><br>
+    </form>
+    <br> <br>
+    <h2>Update Existing Toll Fare</h2><br><br>
+    <form class="" action="index.html" method="post">
+      Toll Code: <br>
+      <input type="text" name="tCode" ><br><br>
+      Fare effective date,: <br>
+      <input type="text" name="dateEffective" ><br><br>
+      New Fare: <br>
+      <input type="text" name="newFare" ><br><br>
+      <button type="submit" class="btn btn-warning btn-lg">Submit</button>
+    </form>
+    <p>
+        Toll data
+        <table>
+            <% for(var i=0; i < data.length; i++) { %>
+                <tr>
+                    <td><%= data[i].name %></td>
+                    <td><%= data[i].fare %></td>
+                </tr>
+            <% } %>
+        </table>
+    </p>
+  </body>
+</html>
