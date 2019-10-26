@@ -14,12 +14,14 @@ function getAllData () {
   return tollData
 }
 
-function addTollCrossing () {
-
+function addTollCrossing (data, next) {
+  tollData.push(data)
+  return next(true)
 }
 
-function updateTollFare () {
-
+function updateTollFare (id, fare, next) {
+  tollData[id].fare = fare
+  return next(true)
 }
 
 function initTollCrossing () {

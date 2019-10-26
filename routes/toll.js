@@ -21,14 +21,33 @@ router.get('/', function (req, res, next) {
 router.post('/add', function (req, res, next) {
   // res.render('index', { title: 'Index Page' })
   console.log(req.body)
-
-  res.redirect('/toll')
+  var tollData = req.body
+  tollDB.addTollCrossing(tollData, (success, err) => {
+    if (success) {
+      req.session.success = 'Successfully added toll route'
+      res.redirect('/toll')
+    } else {
+      req.session.error = 'Error adding route data'
+      res.redirect('/toll')
+    }
+  })
 })
+
 router.post('/update', restrict, function (req, res, next) {
   // res.render('index', { title: 'Index Page' })
   console.log(req.body)
+  var newFare = req.body.fare
+  var id = req.body.tollid
 
-  res.redirect('/toll')
+  tollDB.updateTollFare(id, newFare, (success, err) => {
+    if (success) {
+      req.session.success = 'Successfully updated toll fare'
+      res.redirect('/toll')
+    } else {
+      req.session.error = 'Error updating toll fare'
+      res.redirect('/toll')
+    }
+  })
 })
 router.post('/pay', restrict, function (req, res, next) {
   // res.render('index', { title: 'Index Page' })
