@@ -7,9 +7,8 @@ var tollDB = require('../db/toll.db')
 router.get('/', function (req, res, next) {
   // res.render('index', { title: 'Index Page' })
   console.log('in toll page')
-  var data = tollDB.getAllData()
   res.render('toll', {
-    data: data
+    data: tollDB.getAllData()
   })
 })
 

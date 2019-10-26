@@ -5,13 +5,29 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
     <style>
         body         { padding-top:80px; }
+        table, th, td {
+        border: 1px solid black;
+        }
     </style>
     <meta charset="utf-8">
     <title></title>
   </head>
   <body>
+        <h2>Toll Code Chart for Reference</h2>
+        <table style="width:100%">
+          <tr>
+            <th>Toll Code</th>
+            <th>Toll Name</th>
+          </tr>
+            <% for(var i=0; i < data.length; i+=2) { %>
+                <tr>
+                    <td><%= i %></td>
+                    <td><%= data[i].name %></td>
+                </tr>
+            <% } %>
+        </table>
     <h2>Create New Toll</h2><br><br>
-    <form class="toll" action="/createToll" method="post">
+    <form class="toll" action="/toll/add" method="post">
       Toll Name : <br>
       <input type="text" name="tollName" ><br><br>
       Fare: <br>
@@ -26,7 +42,7 @@
     </form>
     <br> <br>
     <h2>Update Existing Toll Fare</h2><br><br>
-    <form class="" action="index.html" method="post">
+    <form class="" action="/toll/update" method="post">
       Toll Code: <br>
       <input type="text" name="tCode" ><br><br>
       Fare effective date,: <br>
@@ -35,16 +51,5 @@
       <input type="text" name="newFare" ><br><br>
       <button type="submit" class="btn btn-warning btn-lg">Submit</button>
     </form>
-    <p>
-        Toll data
-        <table>
-            <% for(var i=0; i < data.length; i++) { %>
-                <tr>
-                    <td><%= data[i].name %></td>
-                    <td><%= data[i].fare %></td>
-                </tr>
-            <% } %>
-        </table>
-    </p>
   </body>
 </html>

@@ -4,6 +4,7 @@ var router = express.Router()
 var { authenticate, restrict } = require('../auth')
 var customerDB = require('../db/customer.db')
 var tagsDB = require('../db/tag.db')
+var tollDB = require('../db/toll.db')
 
 /* GET users listing. */
 router.get('/', restrict, function (req, res, next) {
@@ -13,7 +14,7 @@ router.get('/', restrict, function (req, res, next) {
 router.get('/customer', restrict, function (req, res, next) {
   console.log(req.session)
   var user = req.session.user
-  res.render('customer', { title: user })
+  res.render('customer', { title: user, data: tollDB.getAllData() })
 })
 
 router.get('/clerk', restrict, function (req, res, next) {
