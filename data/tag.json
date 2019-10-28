@@ -1,4 +1,8 @@
 {
+  "16279": {
+    "status": "assigned",
+    "addDate": "10/27/2019"
+  },
   "24504": {
     "status": "lost",
     "addDate": "10/27/2019"
@@ -12,7 +16,7 @@
     "addDate": "10/27/2019"
   },
   "62988": {
-    "status": "available",
+    "status": "lost",
     "addDate": "10/27/2019"
   },
   "96764": {

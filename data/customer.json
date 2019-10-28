@@ -14,5 +14,21 @@
     "balance": 0,
     "isAdmin": false,
     "tag": "26785"
+  },
+  "admin@admin.com": {
+    "email": "admin@admin.com",
+    "password": "qwe",
+    "fname": "admin",
+    "lname": "admin",
+    "address": "admin",
+    "zip": "12345",
+    "state": "IN",
+    "lplate": "123456",
+    "cmake": "qwe",
+    "cmodel": "asd",
+    "cyear": "2017",
+    "balance": 100,
+    "isAdmin": true,
+    "tag": "16279"
   }
 }

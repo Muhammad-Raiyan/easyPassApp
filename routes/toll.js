@@ -2,20 +2,31 @@ var express = require('express')
 var router = express.Router()
 
 var restrict = require('../auth').restrict
+var customerDB = require('../db/customer.db')
 var tollDB = require('../db/toll.db')
 /* GET home page. */
-router.get('/', function (req, res, next) {
+router.get('/', restrict, function (req, res, next) {
   // res.render('index', { title: 'Index Page' })
-  console.log('in toll page')
-  res.render('toll', {
+  var userID = req.session.user
+  console.log('Redirect success for ' + userID)
+  var user = customerDB.getUser(userID)
+  if (user.isAdmin) {
+    res.redirect('/toll/clerk')
+  } else {
+    res.redirect('/toll/customer')
+  }
+})
+
+router.get('/clerk', restrict, function (req, res, next) {
+  res.render('toll.clerk.ejs', {
     data: tollDB.getAllData()
   })
 })
 
-router.get('/', restrict, function (req, res, next) {
-  // res.render('index', { title: 'Index Page' })
-  console.log('in toll page')
-  res.send(200)
+router.get('/customer', restrict, function (req, res, next) {
+  res.render('toll.customer.ejs', {
+    data: tollDB.getAllData()
+  })
 })
 
 router.post('/add', restrict, function (req, res, next) {

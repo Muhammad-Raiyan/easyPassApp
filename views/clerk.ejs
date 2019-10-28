@@ -15,6 +15,18 @@
     <% if (message.length > 0) { %>
       <div class="alert alert-danger"><%= message %></div>
     <% } %>
+    <dl class="dl-horizontal">
+        <dt>First Name</dt><dd><%= data.fname %></dd>
+        <dt>Last Name</dt><dd><%= data.lname %></dd>
+        <dt>Address</dt><dd><%= data.address %></dd>
+        <dt>Zip Code</dt><dd><%= data.zip %></dd>
+        <dt>Funds</dt><dd><%= data.balance %></dd>
+        <dt>State</dt><dd><%= data.state %></dd>
+        <dt>Vehicle License Plate</dt><dd><%= data.lplate %></dd>
+        <dt>Vehicle Make</dt><dd><%= data.cmake %></dd>
+        <dt>Vehicle Year</dt><dd><%= data.cyear %></dd>
+        <dt>Vehicle Tag</dt><dd><%= data.tag %></dd>
+      </dl>
     <form action="/users/logout" method="post">
       <button type="submit" class="btn btn-warning btn-lg">Logout</button>
     </form>

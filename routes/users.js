@@ -12,7 +12,7 @@ router.get('/', restrict, function (req, res, next) {
   console.log('Redirect success for ' + userID)
   var user = customerDB.getUser(userID)
   if (user.isAdmin) {
-    res.redirect('/users/clerks')
+    res.redirect('/users/clerk')
   } else {
     res.redirect('/users/customer')
   }
@@ -27,7 +27,7 @@ router.get('/customer', restrict, function (req, res, next) {
 router.get('/clerk', restrict, function (req, res, next) {
   console.log(req.session)
   var user = req.session.user
-  res.render('clerk', { title: user })
+  res.render('clerk', { title: user, data: customerDB.getUser(user) })
 })
 
 router.get('/signup', function (req, res, next) {
