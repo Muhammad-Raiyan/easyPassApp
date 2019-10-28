@@ -9,19 +9,19 @@ var tollDB = require('../db/toll.db')
 /* GET users listing. */
 router.get('/', restrict, function (req, res, next) {
   var userID = req.session.user
-  customerDB.getUser(userID, (user) => {
-    if (user.isAdmin) {
-      res.redirect('/users/clerks')
-    } else {
-      res.redirect('/user/customer')
-    }
-  })
+  console.log('Redirect success for ' + userID)
+  var user = customerDB.getUser(userID)
+  if (user.isAdmin) {
+    res.redirect('/users/clerks')
+  } else {
+    res.redirect('/users/customer')
+  }
 })
 
 router.get('/customer', restrict, function (req, res, next) {
   console.log(req.session)
   var user = req.session.user
-  res.render('customer', { title: user, data: tollDB.getAllData() })
+  res.render('customer', { title: user, data: customerDB.getUser(user) })
 })
 
 router.get('/clerk', restrict, function (req, res, next) {

@@ -107,6 +107,8 @@ function removeFund (email, amount, next) {
   return next(true, user)
 }
 
-function getUser (email) {
-  return customers[email]
+function getUser (email, next) {
+  var user = customers[email]
+  console.log('Found user ' + user)
+  return user
 }

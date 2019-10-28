@@ -12,6 +12,7 @@
     "cmodel": "asd",
     "cyear": "asd",
     "balance": 0,
-    "isAdmin": false
+    "isAdmin": false,
+    "tag": "26785"
   }
 }
