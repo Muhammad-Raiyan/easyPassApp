@@ -87,6 +87,7 @@ router.post('/logout', function (req, res) {
   console.log(req.session)
   customerDB.storeCustomers(req.session.user, (success) => {
     tagsDB.storeTags()
+    tollDB.storeTollData()
     req.session.destroy(function () {
       res.redirect('/users/login')
     })
@@ -151,7 +152,7 @@ router.post('/addFunds', restrict, function (req, res) {
   })
 })
 
-router.get('/changeInformation', function (req, res, next) {
+router.get('/changeInformation', restrict, function (req, res, next) {
   res.render('personal', { title: 'Update Personal Info for ' })
 })
 router.post('/changeInformation', function (req, res, next) {

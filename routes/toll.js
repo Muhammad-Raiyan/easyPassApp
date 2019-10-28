@@ -12,13 +12,13 @@ router.get('/', function (req, res, next) {
   })
 })
 
-router.get('/', function (req, res, next) {
+router.get('/', restrict, function (req, res, next) {
   // res.render('index', { title: 'Index Page' })
   console.log('in toll page')
   res.send(200)
 })
 
-router.post('/add', function (req, res, next) {
+router.post('/add', restrict, function (req, res, next) {
   // res.render('index', { title: 'Index Page' })
   console.log(req.body)
   var tollData = req.body
@@ -36,8 +36,8 @@ router.post('/add', function (req, res, next) {
 router.post('/update', restrict, function (req, res, next) {
   // res.render('index', { title: 'Index Page' })
   console.log(req.body)
-  var newFare = req.body.fare
-  var id = req.body.tollid
+  var newFare = req.body.newFare
+  var id = req.body.id
 
   tollDB.updateTollFare(id, newFare, (success, err) => {
     if (success) {

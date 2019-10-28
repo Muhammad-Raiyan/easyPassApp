@@ -13,29 +13,43 @@
     <title></title>
   </head>
   <body>
-        <h2>Toll Code Chart for Reference</h2>
-        <table style="width:100%">
-          <tr>
-            <th>Toll Code</th>
-            <th>Toll Name</th>
-          </tr>
-            <% for(var i=0; i < data.length; i+=2) { %>
-                <tr>
-                    <td><%= i %></td>
-                    <td><%= data[i].name %></td>
-                </tr>
-            <% } %>
-        </table>
+    <form action="/users/clerk" method="get">
+      <button type="submit" class="btn btn-warning btn-lg"> Go to Users page</button>
+    </form>
+    <form action="/users/logout" method="post">
+      <button type="submit" class="btn btn-warning btn-lg"> Save and Logout</button>
+    </form>
+    <h2>Toll Code Chart for Reference</h2>
+    <table style="width:100%">
+      <tr>
+        <th>Toll Code</th>
+        <th>Toll Name</th>
+        <th>Toll Fare</th>
+        <th>Toll Effective Date</th>
+        <th>Entry Point</th>
+        <th>Toll Type</th>
+      </tr>
+        <% for(var i=0; i < data.length; i++) { %>
+            <tr>
+                <td><%= i %></td>
+                <td><%= data[i].name %></td>
+                <td><%= data[i].fare %></td>
+                <td><%= data[i].dateEffective %></td>
+                <td><%= data[i].entryPoint %></td>
+                <td><%= data[i].type %></td>
+            </tr>
+        <% } %>
+    </table>
     <h2>Create New Toll</h2><br><br>
     <form class="toll" action="/toll/add" method="post">
       Toll Name : <br>
-      <input type="text" name="tollName" ><br><br>
+      <input type="text" name="name" ><br><br>
       Fare: <br>
       <input type="text" name="fare" ><br><br>
       Fare effective date,: <br>
       <input type="text" name="dateEffective" ><br><br>
       Toll type (bridge, tunnel) : <br>
-      <input type="text" name="tollType" ><br><br>
+      <input type="text" name="type" ><br><br>
       Entry point : <br>
       <input type="text" name="entryPoint"><br><br>
       <button type="submit" class="btn btn-warning btn-lg">Submit</button><br><br>
@@ -44,7 +58,7 @@
     <h2>Update Existing Toll Fare</h2><br><br>
     <form class="" action="/toll/update" method="post">
       Toll Code: <br>
-      <input type="text" name="tCode" ><br><br>
+      <input type="text" name="id" ><br><br>
       Fare effective date,: <br>
       <input type="text" name="dateEffective" ><br><br>
       New Fare: <br>

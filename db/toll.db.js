@@ -7,7 +7,7 @@ module.exports = {
   addTollCrossing,
   updateTollFare,
   initTollCrossing,
-  saveTollCrossing
+  storeTollData
 }
 
 function getAllData () {
@@ -33,6 +33,9 @@ function initTollCrossing () {
   console.log(tollData)
 }
 
-function saveTollCrossing () {
-
+function storeTollData () {
+  console.log('storing all tag data')
+  for (var key in tollData) {
+    tollStorage.setItem(key, tollData[key])
+  }
 }

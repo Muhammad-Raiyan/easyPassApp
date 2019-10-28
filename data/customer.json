@@ -44,5 +44,6 @@
     "cyear": "asd",
     "balance": 0,
     "isAdmin": false
-  }
+  },
+  "undefined": null
 }
