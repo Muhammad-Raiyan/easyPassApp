@@ -12,26 +12,5 @@
     "dateEffective": "10/25/2019",
     "type": "bridge",
     "entryPoint": "queens"
-  },
-  "2": {
-    "name": "asd",
-    "fare": "23",
-    "dateEffective": "10/27/2019",
-    "type": "bridge",
-    "entryPoint": "asd"
-  },
-  "3": {
-    "name": "asd",
-    "fare": "8",
-    "dateEffective": "10/27/2019",
-    "type": "tunnel",
-    "entryPoint": "dsa"
-  },
-  "4": {
-    "name": "qwe",
-    "fare": "4",
-    "dateEffective": "10/27/2019",
-    "type": "tunnel",
-    "entryPoint": "asd"
   }
 }

@@ -30,5 +30,6 @@
     "balance": 100,
     "isAdmin": true,
     "tag": "16279"
-  }
+  },
+  "undefined": null
 }

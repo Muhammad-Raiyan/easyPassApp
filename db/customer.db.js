@@ -14,7 +14,8 @@ module.exports = {
   removeFund,
   initCustomers,
   storeCustomers,
-  getUser
+  getUser,
+  getUserCallback
 }
 
 function initCustomers () {
@@ -107,8 +108,14 @@ function removeFund (email, amount, next) {
   return next(true, user)
 }
 
-function getUser (email, next) {
+function getUser (email) {
   var user = customers[email]
-  console.log('Found user ' + user)
+  console.log('Found user ' + JSON.stringify(user))
   return user
+}
+
+function getUserCallback (email, next) {
+  var user = customers[email]
+  console.log('Found user ' + JSON.stringify(user))
+  return next(user)
 }

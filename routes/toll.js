@@ -60,10 +60,26 @@ router.post('/update', restrict, function (req, res, next) {
     }
   })
 })
+
 router.post('/pay', restrict, function (req, res, next) {
   // res.render('index', { title: 'Index Page' })
   console.log(req.body)
-  res.redirect('/toll')
+  var userID = req.session.user
+  var tCode = req.body.tollCode
+  var fare = tollDB.getFare(tCode)
+  console.log(tCode + fare)
+  var user = customerDB.getUser(userID)
+  var tollData = {
+    tollCode: tCode,
+    tagID: user.tag,
+    lplate: user.lplate,
+    fare: fare
+  }
+  console.log(tollData)
+  customerDB.removeFund(userID, fare, (success, user) => {
+    console.log(user)
+    res.redirect('/users')
+  })
 })
 
 module.exports = router
