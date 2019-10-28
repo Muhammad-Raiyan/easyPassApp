@@ -69,16 +69,19 @@ router.post('/pay', restrict, function (req, res, next) {
   var fare = tollDB.getFare(tCode)
   console.log(tCode + fare)
   var user = customerDB.getUser(userID)
-  var tollData = {
+  var tripData = {
     tollCode: tCode,
     tagID: user.tag,
     lplate: user.lplate,
-    fare: fare
+    fare: fare,
+    timestamp: new Date(Date.now()).toLocaleString()
   }
-  console.log(tollData)
+  console.log(tripData)
   customerDB.removeFund(userID, fare, (success, user) => {
     console.log(user)
-    res.redirect('/users')
+    customerDB.addTrip(userID, tripData, (success) => {
+      res.redirect('/users')
+    })
   })
 })
 

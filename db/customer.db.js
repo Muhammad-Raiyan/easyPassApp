@@ -15,7 +15,8 @@ module.exports = {
   initCustomers,
   storeCustomers,
   getUser,
-  getUserCallback
+  getUserCallback,
+  addTrip
 }
 
 function initCustomers () {
@@ -118,4 +119,14 @@ function getUserCallback (email, next) {
   var user = customers[email]
   console.log('Found user ' + JSON.stringify(user))
   return next(user)
+}
+
+function addTrip (email, tripData, next) {
+  var user = customers[email]
+  console.log('Found user ' + JSON.stringify(user))
+  if (user.trips == null) {
+    user.trips = []
+  }
+  user.trips.push(tripData)
+  return next(true)
 }

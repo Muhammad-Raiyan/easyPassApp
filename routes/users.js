@@ -20,8 +20,9 @@ router.get('/', restrict, function (req, res, next) {
 
 router.get('/customer', restrict, function (req, res, next) {
   console.log(req.session)
-  var user = req.session.user
-  res.render('customer', { title: user, data: customerDB.getUser(user) })
+  var email = req.session.user
+  var user = customerDB.getUser(email)
+  res.render('customer', { title: email, data: user, trip: user.trips })
 })
 
 router.get('/clerk', restrict, function (req, res, next) {
