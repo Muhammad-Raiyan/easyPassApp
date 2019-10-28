@@ -12,38 +12,6 @@
     "cmodel": "asd",
     "cyear": "asd",
     "balance": 0,
-    "isAdmin": true,
-    "tag": "3333"
-  },
-  "muhammad.r.islam@stonybrook.edu": {
-    "email": "muhammad.r.islam@stonybrook.edu",
-    "password": "asd",
-    "fname": "Muhammad",
-    "lname": "Islam",
-    "address": "57-26 73rd St",
-    "zip": "11378",
-    "state": "NY",
-    "lplate": "asd",
-    "cmake": "asd",
-    "cmodel": "asd",
-    "cyear": "asd",
-    "balance": 0,
     "isAdmin": false
-  },
-  "raiyanishmam@yahoo.com": {
-    "email": "raiyanishmam@yahoo.com",
-    "password": "asd",
-    "fname": "Muhammad",
-    "lname": "Islam",
-    "address": "57-26 73rd St",
-    "zip": "11378",
-    "state": "NY",
-    "lplate": "asd",
-    "cmake": "asd",
-    "cmodel": "asd",
-    "cyear": "asd",
-    "balance": 0,
-    "isAdmin": false
-  },
-  "undefined": null
+  }
 }

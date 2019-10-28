@@ -42,17 +42,6 @@ function createCustomer (user, next) {
   }
 }
 
-async function requestTag (email, next) {
-  var user = customers[email]
-  console.log(user)
-  tagDB.assignTag(user, (assigned) => {
-    if (assigned) {
-      return next(true, user)
-    }
-    return next(false, user)
-  })
-}
-
 function updateUser (email, updatedUser, next) {
   var user = customers[email]
   console.log(user)
@@ -67,6 +56,17 @@ function updateUser (email, updatedUser, next) {
 function updateVehicle (email) {
   var user = customers[email]
   console.log(user)
+}
+
+async function requestTag (email, next) {
+  var user = customers[email]
+  console.log('Tag request for' + JSON.stringify(user))
+  tagDB.assignTag(user, (assigned) => {
+    if (assigned) {
+      return next(true, user)
+    }
+    return next(false, user)
+  })
 }
 
 async function returnTag (email, next) {
