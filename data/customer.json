@@ -11,7 +11,7 @@
     "cmake": "asd",
     "cmodel": "asd",
     "cyear": "asd",
-    "balance": 69.39999999999998,
+    "balance": 63.27999999999998,
     "isAdmin": false,
     "tag": "26785",
     "trips": [
@@ -20,7 +20,7 @@
         "tagID": "26785",
         "lplate": "asd",
         "fare": 6.12,
-        "timestamp": "10/28/2019, 12:11:04 AM"
+        "timestamp": "10/28/2019, 12:21:30 AM"
       }
     ]
   },

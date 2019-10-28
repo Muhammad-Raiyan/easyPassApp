@@ -28,7 +28,7 @@ router.get('/customer', restrict, function (req, res, next) {
 router.get('/clerk', restrict, function (req, res, next) {
   console.log(req.session)
   var user = req.session.user
-  res.render('clerk', { title: user, data: customerDB.getUser(user) })
+  res.render('clerk', { title: user, data: customerDB.getUser(user), trip: customerDB.getTrips() })
 })
 
 router.get('/signup', function (req, res, next) {

@@ -50,5 +50,25 @@
     <form action="/toll" method="get">
       <button type="submit" class="btn btn-warning btn-lg"> Go To Toll Page</button>
     </form>
+    <table style="width:100%">
+        <tr>
+          <th>Toll Code</th>
+          <th>Tag ID</th>
+          <th>Plate #</th>
+          <th>Fare</th>
+          <th>Timestamp</th>
+        </tr>
+        <% if(trip != null) { %>
+          <% for(var i=0; i < trip.length; i++) { %>
+            <tr>
+                <td><%= trip[i].tollCode %></td>
+                <td><%= trip[i].tagID %></td>
+                <td><%= trip[i].lplate %></td>
+                <td><%= trip[i].fare %></td>
+                <td><%= trip[i].timestamp %></td>
+            </tr>
+          <% } %>
+        <% } %>
+      </table>
   </body>
 </html>

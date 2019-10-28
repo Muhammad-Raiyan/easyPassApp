@@ -1,7 +1,9 @@
 var Storage = require('dom-storage')
 var customerStorage = new Storage('./data/customer.json', { strict: false, ws: '  ' })
+var tripStorage = new Storage('./data/trip.json', { strict: false, ws: '  ' })
 var tagDB = require('./tag.db')
 var customers = null
+var globalTrips = []
 
 module.exports = {
   createCustomer,
@@ -16,17 +18,27 @@ module.exports = {
   storeCustomers,
   getUser,
   getUserCallback,
-  addTrip
+  addTrip,
+  getTrips
 }
 
 function initCustomers () {
   customers = customerStorage
+  var i
+  for (i = 0; i < tripStorage.length; i++) {
+    var temp = tripStorage.getItem(i)
+    globalTrips[i] = temp
+  }
+  console.log(globalTrips)
 }
 
 function storeCustomers (email, next) {
   console.log('storing all customer data')
   var user = customers[email]
   customerStorage.setItem(email, user)
+  globalTrips.forEach((item, index) => {
+    tripStorage.setItem(index, globalTrips[index])
+  })
   return next(true)
 }
 
@@ -128,5 +140,10 @@ function addTrip (email, tripData, next) {
     user.trips = []
   }
   user.trips.push(tripData)
+  globalTrips.push(tripData)
   return next(true)
+}
+
+function getTrips () {
+  return globalTrips
 }
