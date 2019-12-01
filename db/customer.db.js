@@ -2,6 +2,7 @@ var Storage = require('dom-storage')
 var customerStorage = new Storage('./data/customer.json', { strict: false, ws: '  ' })
 var tripStorage = new Storage('./data/trip.json', { strict: false, ws: '  ' })
 var tagDB = require('./tag.db')
+var tollDB = require('./toll.db')
 var customers = null
 var globalTrips = []
 
@@ -21,7 +22,8 @@ module.exports = {
   getUserCallback,
   addTrip,
   getTrips,
-  getRevenue
+  getRevenue,
+  getTollrevenueReport
 }
 
 function initCustomers () {
@@ -166,4 +168,35 @@ function getRevenue (email) {
     revenue += trip.fare
   })
   return revenue
+}
+
+function getTollrevenueReport () {
+  var tollPassCounter = []
+  for (var i = 0; i < tripStorage.length; i++) {
+    var idx = tripStorage.getItem(i).tollCode
+    if (typeof tollPassCounter[idx] === 'undefined') {
+      tollPassCounter[idx] = 1
+    } else {
+      tollPassCounter[idx] += 1
+    }
+  }
+  console.log(tollPassCounter)
+  var tollData = tollDB.getAllData()
+  console.log(tollData)
+  var tollRevenue = []
+  var totalRevenue = 0
+
+  for (i = 0; i < tollData.length; i++) {
+    var rev = tollData[i].fare * tollPassCounter[i]
+    var data = {
+      tollCode: i,
+      tollName: tollData[i].name,
+      tollFare: tollData[i].fare,
+      revenue: rev
+    }
+    tollRevenue.push(data)
+    totalRevenue += rev
+  }
+
+  return [tollRevenue, totalRevenue]
 }

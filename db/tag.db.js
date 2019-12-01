@@ -12,7 +12,8 @@ module.exports = {
   returnTag,
   reportTagLost,
   initTags,
-  storeTags
+  storeTags,
+  getTags
 }
 
 function initTags () {
@@ -76,4 +77,8 @@ function createTag () {
   }
   tags[tagID] = tagData
   return tagID
+}
+
+function getTags () {
+  return tags
 }

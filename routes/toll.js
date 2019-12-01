@@ -86,7 +86,15 @@ router.post('/pay', restrict, function (req, res, next) {
 })
 
 router.get('/tollRevenue', function (req, res, next) {
-
+  var [tollRevData, totalRev] = customerDB.getTollrevenueReport()
+  console.log(tollRevData)
+  tollRevData.sort((a, b) => (a.tollName.toLowerCase() > b.tollName.toLowerCase()) ? 1 : (a.tollName.toLowerCase() === b.tollName.toLowerCase()) ? ((a.tollCode > b.tollCode) ? 1 : -1) : -1)
+  res.send({
+    date: new Date(Date.now()).toLocaleString(),
+    title: 'Toll Revenue Report',
+    data: tollRevData,
+    total: totalRev
+  })
 })
 
 module.exports = router
