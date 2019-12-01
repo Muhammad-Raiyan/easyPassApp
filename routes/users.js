@@ -170,7 +170,7 @@ router.post('/changeInformation', function (req, res, next) {
   })
 })
 
-router.get('/clientRevenue', function (req, res, next) {
+router.get('/clientRevenue', restrict, function (req, res, next) {
   var customers = customerDB.getUsers()
   var clients = []
   var totalRevenue = 0
