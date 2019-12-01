@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <style>
+        body         { padding-top:80px; }
+    </style>
+  </head>
+  <body>
+    
+    <h1><%= title %></h1>
+    <% if (message.length > 0) { %>
+      <div class="alert alert-danger"><%= message %></div>
+    <% } %>
+    <form action="/users/logout" method="post">
+      <button type="submit" class="btn btn-warning btn-lg">Logout</button>
+    </form>
+    <p>Welcome to <%= title %></p>
+    <p>Timestamp: <%= date %></p>
+    <table style="width:100%">
+        <tr>
+          <th>Full Name</th>
+          <th>Signup Date/th>
+          <th>Revenue</th>
+        </tr>
+        <% if(fields != null) { %>
+          <% for(var i=0; i < fields.length; i++) { %>
+            <tr>
+                <td><%= fields[i].fullname %></td>
+                <td><%= fields[i].sdate %></td>
+                <td><%= fields[i].revenue %></td>
+            </tr>
+          <% } %>
+        <% } %>
+      </table>
+    <h2>Total Client Revenue: <%= total %></h2>
+  </body>
+</html>

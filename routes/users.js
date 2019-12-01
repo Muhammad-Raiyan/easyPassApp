@@ -187,7 +187,7 @@ router.get('/clientRevenue', function (req, res, next) {
     clients.push(customerRevData)
   })
   clients.sort((a, b) => (a.fullname.toLowerCase() > b.fullname.toLowerCase()) ? 1 : -1)
-  res.send({
+  res.render( 'clientreport.ejs', {
     date: new Date(Date.now()).toLocaleString(),
     title: 'Detailed Client Revenue Report',
     fields: clients,
