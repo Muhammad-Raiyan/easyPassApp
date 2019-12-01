@@ -14,6 +14,7 @@
     "balance": 63.27999999999998,
     "isAdmin": false,
     "tag": "26785",
+    "sdate": "09/30/2019, 9:34:19 PM",
     "trips": [
       {
         "tollCode": "1",
@@ -36,9 +37,45 @@
     "cmake": "qwe",
     "cmodel": "asd",
     "cyear": "2017",
+    "sdate": "09/30/2019, 9:34:19 PM",
     "balance": 100,
     "isAdmin": true,
     "tag": "16279"
   },
-  "undefined": null
+  "qwe@qwe.com": {
+    "email": "qwe@qwe.com",
+    "password": "qwe",
+    "fname": "asd",
+    "lname": "qwe",
+    "address": "qwe",
+    "zip": "1234",
+    "state": "LA",
+    "lplate": "qwe",
+    "cmake": "qwe",
+    "cmodel": "qwe",
+    "cyear": "qwe",
+    "balance": 81.63999999999999,
+    "isAdmin": false,
+    "sdate": "11/30/2019, 9:34:19 PM",
+    "trips": [
+      {
+        "tollCode": "1",
+        "lplate": "qwe",
+        "fare": 6.12,
+        "timestamp": "11/30/2019, 9:34:40 PM"
+      },
+      {
+        "tollCode": "0",
+        "lplate": "qwe",
+        "fare": 6.12,
+        "timestamp": "11/30/2019, 9:34:45 PM"
+      },
+      {
+        "tollCode": "1",
+        "lplate": "qwe",
+        "fare": 6.12,
+        "timestamp": "11/30/2019, 9:34:52 PM"
+      }
+    ]
+  }
 }

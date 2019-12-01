@@ -85,4 +85,8 @@ router.post('/pay', restrict, function (req, res, next) {
   })
 })
 
+router.get('/tollRevenue', function (req, res, next) {
+
+})
+
 module.exports = router

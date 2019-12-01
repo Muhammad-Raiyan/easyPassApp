@@ -5,5 +5,23 @@
     "lplate": "asd",
     "fare": 6.12,
     "timestamp": "10/28/2019, 12:21:30 AM"
+  },
+  "1": {
+    "tollCode": "1",
+    "lplate": "qwe",
+    "fare": 6.12,
+    "timestamp": "11/30/2019, 9:34:40 PM"
+  },
+  "2": {
+    "tollCode": "0",
+    "lplate": "qwe",
+    "fare": 6.12,
+    "timestamp": "11/30/2019, 9:34:45 PM"
+  },
+  "3": {
+    "tollCode": "1",
+    "lplate": "qwe",
+    "fare": 6.12,
+    "timestamp": "11/30/2019, 9:34:52 PM"
   }
 }

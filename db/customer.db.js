@@ -17,9 +17,11 @@ module.exports = {
   initCustomers,
   storeCustomers,
   getUser,
+  getUsers,
   getUserCallback,
   addTrip,
-  getTrips
+  getTrips,
+  getRevenue
 }
 
 function initCustomers () {
@@ -49,6 +51,7 @@ function createCustomer (user, next) {
   } else {
     user.balance = 0
     user.isAdmin = false
+    user.sdate = new Date(Date.now()).toLocaleString()
     customers[username] = user
     customerStorage.setItem(username, user)
     // tagDB.createTag()
@@ -146,4 +149,21 @@ function addTrip (email, tripData, next) {
 
 function getTrips () {
   return globalTrips
+}
+
+function getUsers (next) {
+  return customerStorage
+}
+
+function getRevenue (email) {
+  var user = customers[email]
+  var trips = user.trips
+  var revenue = 0
+  if (trips == null) {
+    return revenue
+  }
+  trips.forEach(trip => {
+    revenue += trip.fare
+  })
+  return revenue
 }

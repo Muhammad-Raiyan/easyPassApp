@@ -170,4 +170,29 @@ router.post('/changeInformation', function (req, res, next) {
   })
 })
 
+router.get('/clientRevenue', function (req, res, next) {
+  var customers = customerDB.getUsers()
+  var clients = []
+  var totalRevenue = 0
+  Object.keys(customers).forEach(key => {
+    var customer = customers.getItem(key)
+    var rev = customerDB.getRevenue(key)
+    totalRevenue += rev
+    var customerRevData = {
+      fullname: customer.lname + ' ' + customer.fname,
+      sdate: customer.sdate,
+      revenue: rev
+    }
+
+    clients.push(customerRevData)
+  })
+  clients.sort((a, b) => (a.fullname.toLowerCase() > b.fullname.toLowerCase()) ? 1 : -1)
+  res.send({
+    date: new Date(Date.now()).toLocaleString(),
+    title: 'Detailed Client Revenue Report',
+    fields: clients,
+    total: totalRevenue
+  })
+})
+
 module.exports = router
